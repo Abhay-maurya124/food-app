@@ -1,0 +1,492 @@
+[
+  {
+    "Starter": [
+      {
+        "categoryName": "starter",
+        "name": "French Fries",
+        "img": "",
+        "option": [
+          {
+            "regular": "80",
+            "large": "120"
+          }
+        ],
+        "Description": "Crispy golden fries served with ketchup."
+      },
+      {
+        "categoryName": "starter",
+        "name": "Paneer Tikka",
+        "img": "",
+        "option": [
+          {
+            "single": "150"
+          }
+        ],
+        "Description": "Smoky marinated paneer cubes grilled to perfection."
+      },
+      {
+        "categoryName": "starter",
+        "name": "Chicken Wings",
+        "img": "",
+        "option": [
+          {
+            "6pcs": "220",
+            "12pcs": "420"
+          }
+        ],
+        "Description": "Spicy chicken wings served with dip."
+      },
+      {
+        "categoryName": "starter",
+        "name": "Garlic Bread",
+        "img": "",
+        "option": [
+          {
+            "single": "110"
+          }
+        ],
+        "Description": "Toasted garlic bread with herbs and butter."
+      },
+      {
+        "categoryName": "starter",
+        "name": "Veg Spring Rolls",
+        "img": "",
+        "option": [
+          {
+            "6pcs": "130"
+          }
+        ],
+        "Description": "Crispy vegetable spring rolls with sweet chili sauce."
+      },
+      {
+        "categoryName": "starter",
+        "name": "Cheese Sticks",
+        "img": "",
+        "option": [
+          {
+            "6pcs": "180"
+          }
+        ],
+        "Description": "Mozzarella cheese sticks fried until golden."
+      },
+      {
+        "categoryName": "starter",
+        "name": "Hummus & Pita",
+        "img": "",
+        "option": [
+          {
+            "single": "140"
+          }
+        ],
+        "Description": "Creamy hummus served with warm pita bread."
+      },
+      {
+        "categoryName": "starter",
+        "name": "Chilli Paneer",
+        "img": "",
+        "option": [
+          {
+            "regular": "200"
+          }
+        ],
+        "Description": "Spicy Indo-Chinese chilli paneer cubes."
+      },
+      {
+        "categoryName": "starter",
+        "name": "Onion Rings",
+        "img": "",
+        "option": [
+          {
+            "regular": "100"
+          }
+        ],
+        "Description": "Crispy battered onion rings with dip."
+      },
+      {
+        "categoryName": "starter",
+        "name": "Bruschetta",
+        "img": "",
+        "option": [
+          {
+            "regular": "160"
+          }
+        ],
+        "Description": "Toasted bread topped with tomato and basil."
+      }
+    ],
+    "Pizza": [
+      {
+        "categoryName": "pizza",
+        "name": "Chicken Cheese Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "120",
+            "medium": "230",
+            "large": "350"
+          }
+        ],
+        "Description": "Freshly prepared sour dough with basil leaves and chicken."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Pepperoni Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "130",
+            "medium": "240",
+            "large": "360"
+          }
+        ],
+        "Description": "Classic pepperoni with mozzarella and rich tomato sauce."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Veggie Supreme Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "110",
+            "medium": "220",
+            "large": "330"
+          }
+        ],
+        "Description": "Loaded with fresh veggies and cheese."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Margherita Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "100",
+            "medium": "200",
+            "large": "310"
+          }
+        ],
+        "Description": "Classic margherita with basil and cheese."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "BBQ Chicken Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "140",
+            "medium": "260",
+            "large": "380"
+          }
+        ],
+        "Description": "BBQ sauce, grilled chicken, and caramelized onions."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Farmhouse Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "115",
+            "medium": "225",
+            "large": "340"
+          }
+        ],
+        "Description": "Bell peppers, olives, mushrooms, and onions."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Hawaiian Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "135",
+            "medium": "250",
+            "large": "370"
+          }
+        ],
+        "Description": "Ham, pineapple, and cheese on a tangy base."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Mexican Green Wave Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "125",
+            "medium": "235",
+            "large": "355"
+          }
+        ],
+        "Description": "Spicy jalapeños, capsicum, and onion."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Paneer Tikka Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "120",
+            "medium": "230",
+            "large": "350"
+          }
+        ],
+        "Description": "Tandoori paneer with onion and capsicum."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Cheese Burst Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "150",
+            "medium": "270",
+            "large": "390"
+          }
+        ],
+        "Description": "Extra cheesy pizza with molten cheese."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Peri Peri Chicken Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "145",
+            "medium": "265",
+            "large": "385"
+          }
+        ],
+        "Description": "Spicy peri peri chicken topping."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Mexican Salsa Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "130",
+            "medium": "245",
+            "large": "365"
+          }
+        ],
+        "Description": "Zesty salsa and mixed veggies."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Cheese & Corn Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "110",
+            "medium": "220",
+            "large": "335"
+          }
+        ],
+        "Description": "Sweet corn with gooey cheese."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Spicy Veg Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "105",
+            "medium": "215",
+            "large": "325"
+          }
+        ],
+        "Description": "Hot spices with mixed vegetables."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Tandoori Chicken Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "155",
+            "medium": "280",
+            "large": "405"
+          }
+        ],
+        "Description": "Tandoori spices and juicy chicken."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Garlic Bread Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "115",
+            "medium": "230",
+            "large": "345"
+          }
+        ],
+        "Description": "Garlic bread flavors on pizza base."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Double Cheese Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "140",
+            "medium": "260",
+            "large": "380"
+          }
+        ],
+        "Description": "Loaded with double cheese."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Mexican Chicken Fiesta Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "145",
+            "medium": "270",
+            "large": "395"
+          }
+        ],
+        "Description": "Mexican spices with grilled chicken."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Supreme Veggie Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "120",
+            "medium": "235",
+            "large": "350"
+          }
+        ],
+        "Description": "All veggies with rich cheese."
+      },
+      {
+        "categoryName": "pizza",
+        "name": "Seafood Delight Pizza",
+        "img": "",
+        "option": [
+          {
+            "regular": "160",
+            "medium": "290",
+            "large": "420"
+          }
+        ],
+        "Description": "Shrimp, fish, and seafood toppings."
+      }
+    ],
+    "Main-course": [
+      {
+        "categoryName": "main-course",
+        "name": "Butter Chicken",
+        "img": "",
+        "option": [
+          {
+            "plate": "280"
+          }
+        ],
+        "Description": "Creamy butter chicken with naan."
+      },
+      {
+        "categoryName": "main-course",
+        "name": "Paneer Butter Masala",
+        "img": "",
+        "option": [
+          {
+            "plate": "260"
+          }
+        ],
+        "Description": "Paneer in rich creamy tomato gravy."
+      },
+      {
+        "categoryName": "main-course",
+        "name": "Dal Makhani",
+        "img": "",
+        "option": [
+          {
+            "plate": "220"
+          }
+        ],
+        "Description": "Slow-cooked black lentils with butter."
+      },
+      {
+        "categoryName": "main-course",
+        "name": "Chicken Biryani",
+        "img": "",
+        "option": [
+          {
+            "plate": "320"
+          }
+        ],
+        "Description": "Aromatic biryani with tender chicken."
+      },
+      {
+        "categoryName": "main-course",
+        "name": "Veg Biryani",
+        "img": "",
+        "option": [
+          {
+            "plate": "240"
+          }
+        ],
+        "Description": "Fragrant rice with mixed veggies."
+      },
+      {
+        "categoryName": "main-course",
+        "name": "Grilled Fish",
+        "img": "",
+        "option": [
+          {
+            "plate": "350"
+          }
+        ],
+        "Description": "Seasoned grilled fish fillet."
+      },
+      {
+        "categoryName": "main-course",
+        "name": "Chole Bhature",
+        "img": "",
+        "option": [
+          {
+            "plate": "200"
+          }
+        ],
+        "Description": "Spicy chickpeas with fluffy bhature."
+      },
+      {
+        "categoryName": "main-course",
+        "name": "Mutton Rogan Josh",
+        "img": "",
+        "option": [
+          {
+            "plate": "380"
+          }
+        ],
+        "Description": "Rich and spicy mutton curry."
+      },
+      {
+        "categoryName": "main-course",
+        "name": "Fish Curry",
+        "img": "",
+        "option": [
+          {
+            "plate": "330"
+          }
+        ],
+        "Description": "Tangy fish curry with rice."
+      },
+      {
+        "categoryName": "main-course",
+        "name": "Egg Fried Rice",
+        "img": "",
+        "option": [
+          {
+            "plate": "180"
+          }
+        ],
+        "Description": "Stir-fried rice with eggs and veggies."
+      }
+    ]
+  }
+]

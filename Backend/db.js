@@ -2,11 +2,14 @@ const mongoose = require("mongoose");
 
 const mongo = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/food-app")
-     console.log("database connected");
+    const uri = process.env.MONGO_URL;
+    if (!uri) throw new Error("🛑 MONGO_URL not found in environment variables");
+
+    await mongoose.connect(uri);  // no options
+    console.log("✅ database connected");
   } catch (error) {
-    console.log(error)
-     process.exit(1);
+    console.error("❌ DB connection failed:", error);
+    process.exit(1);
   }
 };
 
