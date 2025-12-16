@@ -38,7 +38,10 @@ const Navbar = () => {
                     About Us
                 </Link>
                 <Link to="/login" className="hover:text-blue-800">
-                    Log Out
+                    Sign-in
+                </Link>
+                <Link to="/register" className="hover:text-blue-800">
+                    Sign-up
                 </Link>
             </div>
         </nav>
