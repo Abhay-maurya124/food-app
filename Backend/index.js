@@ -7,7 +7,8 @@ const app = express();
 const port = 5173;
 mongo();
 app.get("/", (req, res) => res.send("hello"));
-
+app.use(express.json())
+app.use("/api",require('./Routers/Createuser'))
 app.listen(port, () => {
   console.log("✅ backend connected on port", port);
 });
