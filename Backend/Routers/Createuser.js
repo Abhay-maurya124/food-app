@@ -6,7 +6,22 @@ router.post("/createuser", async (req, res) => {
     await UserSchema.create({
       name: req.body.name,
       email: req.body.email,
-      location: req.body.location,
+      password: req.body.password,
+    });
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+router.post("/logineuser", async (req, res) => {
+  try {
+    await UserSchema.create({
+      name: req.body.name,
+      email: req.body.email,
       password: req.body.password,
     });
     res.json({ success: true });

@@ -1,16 +1,20 @@
-# React + Vite
+Backend
+register= is the place user enter their detail and then their detail send to the backend via frontend form
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+step to send data
 
-Currently, two official plugins are available:
+step 1> use the url where want to share the data http://localhost:5173/api/createuser this url is from backend not the frontend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+step 2> by which method we are using to send the data. like POST same we use in the backend and form method.
+"method:POST"
 
-## React Compiler
+step3>header: format of data we are sending like string but for backend we
+dont use plain string data it uses the json format so we use json formating like
+"content-type : application/json"
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+step 4: sending the Actuall data by using body convet the json for the plain string for the broweser router like:
+{\"name\":\"Abhay\",\"email\":\"a@b.com\",\"password\":\"1234\"}
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+body:json.Stinglyfy({
+name:credentials.name,
+})
