@@ -37,10 +37,10 @@ const Navbar = () => {
                 <Link to="/about-us" className="hover:text-blue-800">
                     About Us
                 </Link>
-                <Link to="/login" className="hover:text-blue-800">
+                <Link to="/loginuser" className="hover:text-blue-800">
                     Sign-in
                 </Link>
-                <Link to="/register" className="hover:text-blue-800">
+                <Link to="/createuser" className="hover:text-blue-800">
                     Sign-up
                 </Link>
             </div>

@@ -17,17 +17,23 @@ router.post("/createuser", async (req, res) => {
     });
   }
 });
-router.post("/logineuser", async (req, res) => {
+router.post("/loginuser", async (req, res) => {
+
   try {
-    await UserSchema.create({
-      name: req.body.name,
+    await UserSchema.findOne({
       email: req.body.email,
       password: req.body.password,
     });
+
     res.json({ success: true });
+
+    
   } catch (error) {
-    res.json({ success: false });
-    console.log(error);
+    console.error(error);
+    res.status(400).json({
+      success: false,
+      error: error.message,
+    });
   }
 });
 module.exports = router;

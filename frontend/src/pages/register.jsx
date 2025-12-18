@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Register = () => {
 
@@ -11,60 +12,105 @@ const Register = () => {
   const handleform = async (e) => {
     e.preventDefault()
     try {
-      // like we are sending the response of user to the backend from the front end
       const response = await fetch('http://localhost:5000/api/createuser', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
-          // 🔹 Tells the server we are sending JSON data
         },
         body: JSON.stringify({
           name: credentials.name,
           email: credentials.email,
           password: credentials.password
-          //  This turns your JavaScript object into a JSON string.
-          //   backend expects JSON, not plain JS object.
         })
       })
       const data = await response.json()
-      console.log("Server response:", data)
+      console.log("Server response:", JSON.stringify(data))
     } catch (error) {
       console.log(error)
     }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-yellow-300 flex items-center justify-center p-6">
-      <form onSubmit={handleform} className="bg-white bg-opacity-80 backdrop-blur-md shadow-lg rounded-lg p-6 w-full max-w-sm">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-6">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden border border-gray-100">
+        <div className="p-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-800">Create Account</h2>
+            <p className="text-gray-500 mt-2">Sign up to get started</p>
+          </div>
 
-        <input
-          type="text"
-          name='name'
-          value={credentials.name}
-          onChange={handlechange}
-          placeholder='Username'
-          className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-        />
+          <form onSubmit={handleform}>
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  name='name'
+                  value={credentials.name}
+                  onChange={handlechange}
+                  placeholder='Enter your name'
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  required
+                />
+              </div>
 
-        <input
-          type="email"
-          name='email'
-          value={credentials.email}
-          onChange={handlechange}
-          placeholder='Email'
-          className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-        />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  name='email'
+                  value={credentials.email}
+                  onChange={handlechange}
+                  placeholder='Enter your email'
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  required
+                />
+              </div>
 
-        <input
-          type="password"
-          name='password'
-          value={credentials.password}
-          onChange={handlechange}
-          placeholder='password'
-          className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-600"
-        />
-        <button type='submit'>Submit</button>
-      </form>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  name='password'
+                  value={credentials.password}
+                  onChange={handlechange}
+                  placeholder='Create a password'
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+              >
+                Create Account
+              </button>
+            </div>
+          </form>
+
+          <div className="mt-8 text-center">
+            <p className="text-gray-600">
+              Already have an account?{' '}
+              <Link
+                to="/loginuser"
+                className="text-blue-600 hover:text-blue-800 font-semibold hover:underline transition-colors duration-200"
+              >
+                Sign in here
+              </Link>
+            </p>
+          </div>
+        </div>
+        
+        {/* Subtle decorative element */}
+        <div className="h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
+      </div>
     </div>
   )
 }

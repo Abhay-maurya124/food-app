@@ -1,92 +1,102 @@
-// import React, { useState } from 'react'
-
-// const Login = () => {
-//     const [credential, setcredential] = useState({ name: "", email: "", password: "" })
-
-// const handlechange = (e)=>{
-//     setcredential({...credential,[e.target.name]:e.target.value })
-// }
-
-//     const handleform = async (e) => {
-//         e.preventDefault()
-
-
-//         try {
-//             const response = await fetch("https://example.com/api/login", {
-//                 method: "POST",
-//                 headers: {
-//                     "Content-Type": "application/json"
-//                 },
-//                 body: JSON.stringify({ name: credential.name, password: credential.password, email: credential.email })
-//             })
-
-//             const data = await response.json()
-//             console.log("Server response:", data)
-//         } catch (err) {
-//             console.error("POST failed:", err)
-//         }
-//     }
-//     return (
-//         <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-//             <form method='POST' onSubmit={handleform} className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
-
-//                 <input
-//                     type="text"
-//                     placeholder='Name'
-//                     name='name'
-//                     value={credential.name}
-//                     onChange={handlechange}
-//                     className="w-full mb-4 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-//                 />
-
-//                 <input
-//                     type="email"
-//                     required
-//                     placeholder='E-mail'
-//                     name='email'
-//                     value={credential.email}
-//                     onChange={handlechange}
-//                     className="w-full mb-4 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-//                 />
-
-//                 <input
-//                     type="password"
-//                     required
-//                     placeholder='Password'
-//                     name='password'
-//                     value={credential.password}
-//                     onChange={handlechange}
-//                     className="w-full mb-6 px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
-//                 />
-
-//                 <button
-//                     type='submit'
-//                     className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition"
-//                 >
-//                     Log-In
-//                 </button>
-
-//             </form>
-//         </div>
-//     )
-// }
-
-// export default Login
-
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-const Login = () => {
+
+const Register = () => {
+
+    const [credentials, setcredentials] = useState({ email: "", password: "" })
+
+    const handlechange = (e) => {
+        setcredentials({ ...credentials, [e.target.name]: e.target.value })
+    }
+
+    const handleform = async (e) => {
+        e.preventDefault()
+        try {
+            const response = await fetch('http://localhost:5000/api/loginuser', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: credentials.email,
+                    password: credentials.password
+                })
+            })
+            const data = await response.json()
+            console.log("Server response:", JSON.stringify(data))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
-        <div>
-            <form method='POST'>
-                <input type="text" />
-                <input type="text" />
-                <Link to="/createuser">
-                    I am new user
-                </Link>
-            </form>
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-6">
+            <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden border border-gray-100">
+                <div className="p-8">
+                    <div className="text-center mb-8">
+                        <h2 className="text-3xl font-bold text-gray-800">Welcome Back</h2>
+                        <p className="text-gray-500 mt-2">Sign in to your account</p>
+                    </div>
+
+                    <form onSubmit={handleform}>
+                        <div className="space-y-6">
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Email Address
+                                </label>
+                                <input
+                                    type="email"
+                                    name='email'
+                                    value={credentials.email}
+                                    onChange={handlechange}
+                                    placeholder='Enter your email'
+                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                    required
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Password
+                                </label>
+                                <input
+                                    type="password"
+                                    name='password'
+                                    value={credentials.password}
+                                    onChange={handlechange}
+                                    placeholder='Enter your password'
+                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                    required
+                                />
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+                            >
+                                Sign In
+                            </button>
+                        </div>
+                    </form>
+
+                    <div className="mt-8 text-center">
+                        <p className="text-gray-600">
+                            New to our platform?{' '}
+                            <Link
+                                to="/createuser"
+                                className="text-blue-600 hover:text-blue-800 font-semibold hover:underline transition-colors duration-200"
+                            >
+                                Create an account
+                            </Link>
+                        </p>
+                    </div>
+                </div>
+                
+                {/* Subtle decorative element */}
+                <div className="h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
+            </div>
         </div>
     )
 }
 
-export default Login
+export default Register
