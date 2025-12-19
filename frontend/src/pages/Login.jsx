@@ -24,6 +24,7 @@ const Register = () => {
             })
             const data = await response.json()
             console.log("Server response:", JSON.stringify(data))
+            localStorage.setItem("authtoken", data.authtoken)
         } catch (error) {
             console.log(error)
         }
@@ -91,7 +92,7 @@ const Register = () => {
                         </p>
                     </div>
                 </div>
-                
+
                 {/* Subtle decorative element */}
                 <div className="h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
             </div>

@@ -10,7 +10,7 @@ const mongo = async () => {
       .find({})
       .toArray();
 
-    // console.log(fetchdata);
+    console.log(fetchdata);
   } catch (err) {
     console.log(err);
   }
