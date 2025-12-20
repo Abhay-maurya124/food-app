@@ -12,7 +12,6 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/loginuser' element={<Login />} />
           <Route path='/createuser' element={<Register />} />
-        
         </Routes>
         <Footer />
       </BrowserRouter>

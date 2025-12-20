@@ -10,7 +10,16 @@ const mongo = async () => {
       .find({})
       .toArray();
 
-    console.log(fetchdata);
+
+    // const fetchcat = await mongoose.connection.db
+    //   .collection("foodcategory")
+    //   .find({})
+    //   .toArray();
+    const data = fetchdata;
+    // const catdata = fetchcat;
+
+    global.foodapp = data;
+    // global.foodapp = catdata;
   } catch (err) {
     console.log(err);
   }
