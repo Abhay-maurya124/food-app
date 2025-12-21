@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 const Register = () => {
 
     const [credentials, setcredentials] = useState({ email: "", password: "" })
-
+    const navigate = useNavigate()
     const handlechange = (e) => {
         setcredentials({ ...credentials, [e.target.name]: e.target.value })
     }
@@ -25,6 +25,7 @@ const Register = () => {
             const data = await response.json()
             console.log("Server response:", JSON.stringify(data))
             localStorage.setItem("authtoken", data.authtoken)
+            navigate("/")
         } catch (error) {
             console.log(error)
         }

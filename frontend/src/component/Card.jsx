@@ -3,9 +3,12 @@ import React, { useState } from 'react'
 const Card = (props) => {
     const [incre, setincre] = useState(0)
     let foodoption = props.option;
-    let optionObj = foodoption[0] || {};
-    let optionkeys = Object.keys(optionObj);
-console.log(optionObj)
+    let optionkeys = Object.keys(foodoption);
+    // console.log(foodoption)
+
+    const [qty, setqty] = useState(1)
+    const [Size, setSize] = useState("")
+
     const handleincrement = () => {
         setincre(prev => {
             if (prev >= 9) return prev
@@ -20,6 +23,9 @@ console.log(optionObj)
         })
     }
 
+    const handleAddToCart = () => {
+
+    }
     return (
         <div className="flex justify-center items-start p-4">
             <div className="card bg-white rounded-2xl shadow-lg overflow-hidden w-full max-w-sm transform transition-transform hover:-translate-y-2">
@@ -27,21 +33,21 @@ console.log(optionObj)
                 {/* Image Section */}
                 <div className="h-48 w-full overflow-hidden">
                     <img
-                        src={props.img}
-                        alt={props.description}
+                        src={props.fooditem.img}
+                        alt={props.fooditem.description}
                         className="w-full h-full object-cover"
                     />
                 </div>
 
                 <div className="p-4 space-y-3 text-gray-800">
                     <h3 className="text-md font-semibold text-indigo-600 text-center uppercase">
-                        {props.category}
+                        {props.fooditem.category}
                     </h3>
 
-                    <p className="text-lg font-bold text-center">{props.name}</p>
+                    <p className="text-lg font-bold text-center">{props.fooditem.name}</p>
 
                     <p className="text-sm text-gray-600 text-justify">
-                        {props.description}
+                        {props.fooditem.description}
                     </p>
 
                     {/* Styled Quantity Selector */}
@@ -55,6 +61,10 @@ console.log(optionObj)
                             <button
                                 onClick={handleDecrement}
                                 disabled={incre <= 0}
+                                onChange={(e) => {
+                                    setqty(e.target.value)
+                                    console.log(qty)
+                                }}
                                 className={`
                                     w-8 h-8 rounded-full flex items-center justify-center 
                                     transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
@@ -96,14 +106,25 @@ console.log(optionObj)
                             </button>
                         </div>
                     </div>
-                    <select className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                    <select value={Size} onChange={(e) => setSize(e.target.data.value)} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300">
                         {optionkeys.map((data) => (
                             <option key={data} value={data}>
                                 {data}
                             </option>
                         ))}
                     </select>
+                    <button
+                        onClick={handleAddToCart}
+                        disabled={incre === 0}
+                        className={`w-full py-2 rounded-lg text-xs font-bold transition-all duration-300 mt-1 ${incre > 0
+                            ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100 hover:bg-indigo-700 active:scale-95'
+                            : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                            }`}
+                    >
+                        ADD TO CART
+                    </button>
                 </div>
+
             </div>
         </div>
     )
