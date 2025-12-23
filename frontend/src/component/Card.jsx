@@ -1,31 +1,52 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useCart, useDispatchcart } from './Contextapi';
 
 const Card = (props) => {
-    const [incre, setincre] = useState(0)
     let foodoption = props.option;
     let optionkeys = Object.keys(foodoption);
-    // console.log(foodoption)
 
+    let dispatchdata = useDispatchcart()
+    let data = useCart()
     const [qty, setqty] = useState(1)
-    const [Size, setSize] = useState("")
+    const [Size, setSize] = useState('')
+    const priceref = useRef()
 
     const handleincrement = () => {
-        setincre(prev => {
-            if (prev >= 9) return prev
-            return prev + 1
-        })
+        setqty(prev => Math.max(prev + 1, 1));
     }
 
     const handleDecrement = () => {
-        setincre(prev => {
-            if (prev <= 0) return 0
-            return prev - 1
+        setqty(prev => Math.max(prev - 1, 1));
+    }
+
+    const handleAddToCart = async () => {
+        await dispatchdata({
+            type: "ADD",
+            id: props.fooditem._id,
+            name: props.fooditem.name,
+            qty: qty,
+            size: Size,
+            Price: FinalPrice,
+            img: props.fooditem.img,
         })
+        console.log(data)
     }
 
-    const handleAddToCart = () => {
+    useEffect(() => {
+        setSize(priceref.current.value)
+    }, [])
 
+    let FinalPrice = qty * parseInt(foodoption[Size])
+
+    // Format price in Indian Rupees style
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: 'INR',
+            maximumFractionDigits: 0
+        }).format(price);
     }
+
     return (
         <div className="flex justify-center items-start p-4">
             <div className="card bg-white rounded-2xl shadow-lg overflow-hidden w-full max-w-sm transform transition-transform hover:-translate-y-2">
@@ -60,15 +81,11 @@ const Card = (props) => {
                             {/* Decrement Button */}
                             <button
                                 onClick={handleDecrement}
-                                disabled={incre <= 0}
-                                onChange={(e) => {
-                                    setqty(e.target.value)
-                                    console.log(qty)
-                                }}
+                                disabled={qty <= 0}
                                 className={`
                                     w-8 h-8 rounded-full flex items-center justify-center 
                                     transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-                                    ${incre <= 0
+                                    ${qty <= 0
                                         ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                                         : 'bg-red-50 text-red-600 hover:bg-red-100 active:bg-red-200'
                                     }
@@ -82,20 +99,20 @@ const Card = (props) => {
                             <div className="min-w-[40px] text-center">
                                 <span className={`
                                     text-lg font-bold transition-all duration-200
-                                    ${incre > 0 ? 'text-gray-800' : 'text-gray-400'}
+                                    ${qty > 0 ? 'text-gray-800' : 'text-gray-400'}
                                 `}>
-                                    {incre}
+                                    {qty}
                                 </span>
                             </div>
 
                             {/* Increment Button */}
                             <button
                                 onClick={handleincrement}
-                                disabled={incre >= 9}
+                                disabled={qty >= 9}
                                 className={`
                                     w-8 h-8 rounded-full flex items-center justify-center 
                                     transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-                                    ${incre >= 9
+                                    ${qty >= 9
                                         ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                                         : 'bg-green-50 text-green-600 hover:bg-green-100 active:bg-green-200'
                                     }
@@ -106,17 +123,29 @@ const Card = (props) => {
                             </button>
                         </div>
                     </div>
-                    <select value={Size} onChange={(e) => setSize(e.target.data.value)} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300">
+
+                    <select
+                        value={Size}
+                        onChange={(e) => setSize(e.target.value)}
+                        ref={priceref}
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                    >
                         {optionkeys.map((data) => (
                             <option key={data} value={data}>
                                 {data}
                             </option>
                         ))}
                     </select>
+
+                    <div className="mt-2 pt-2 border-t border-indigo-100 text-center">
+                        <p className="text-sm font-semibold text-gray-800">
+                            Amount: <span className="text-green-600">₹{FinalPrice.toLocaleString('en-IN')}</span>
+                        </p>
+                    </div>
                     <button
                         onClick={handleAddToCart}
-                        disabled={incre === 0}
-                        className={`w-full py-2 rounded-lg text-xs font-bold transition-all duration-300 mt-1 ${incre > 0
+                        disabled={qty === 0}
+                        className={`w-full py-2 rounded-lg text-xs font-bold transition-all duration-300 mt-1 ${qty > 0
                             ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100 hover:bg-indigo-700 active:scale-95'
                             : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                             }`}
@@ -124,9 +153,8 @@ const Card = (props) => {
                         ADD TO CART
                     </button>
                 </div>
-
             </div>
-        </div>
+        </div >
     )
 }
 

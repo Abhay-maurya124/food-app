@@ -22,6 +22,7 @@ const Register = () => {
                     password: credentials.password
                 })
             })
+            
             const data = await response.json()
             console.log("Server response:", JSON.stringify(data))
             localStorage.setItem("authtoken", data.authtoken)

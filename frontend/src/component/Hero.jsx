@@ -3,7 +3,7 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import Card from './Card';
 // hero section is for the fetching the data from the backend just only and send it to card component as props
 const Hero = () => {
-  const [fetchfood, setfetchfood] = useState([])
+  const [fetchfood,  setfetchfood] = useState([])
   const [loading, setloading] = useState(null)
   const fetchdata = async () => {
     const response = await fetch("http://localhost:5000/api/Alldata", {
@@ -18,7 +18,6 @@ const Hero = () => {
   useEffect(() => {
     fetchdata()
   }, [])
-
   if (loading) {
     return (
       <div className='flex justify-center '>

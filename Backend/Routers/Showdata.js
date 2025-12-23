@@ -8,6 +8,7 @@ router.post("/Alldata", (req, res) => {
     console.log(error, "something went wrong");
   }
 });
+
 // router.post("/Allcategory", (req, res) => {
 //   try {
 //     res.send(global.foodcategory);
