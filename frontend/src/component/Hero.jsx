@@ -35,7 +35,6 @@ const Hero = () => {
       </div>
     )
   }
-
   return (
     <div className="min-h-screen w-full bg-blue-100 p-4 grid gap-6
                 grid-cols-1
