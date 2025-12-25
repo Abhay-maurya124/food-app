@@ -65,6 +65,7 @@ const Navbar = () => {
                     </button>
                     <button onClick={handlecart} className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold px-4 py-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center gap-2">
                         <span>🛒</span> Cart
+                        <span className="bg-red-800"> 1 </span>
                     </button>
                 </div>
                 :

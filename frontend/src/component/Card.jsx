@@ -18,20 +18,21 @@ const Card = (props) => {
     const handleDecrement = () => {
         setqty(prev => Math.max(prev - 1, 1));
     }
-
+    // Inside your handleAddToCart function in Card.js
     const handleAddToCart = async () => {
+        // Ensure FinalPrice is a number before sending
+        const validatedPrice = qty * parseInt(foodoption[Size]);
+
         await dispatchdata({
             type: "ADD",
             id: props.fooditem._id,
             name: props.fooditem.name,
-            qty: qty,
+            qty: Number(qty), // Ensure qty is a number
             size: Size,
-            Price: FinalPrice,
+            Price: validatedPrice,
             img: props.fooditem.img,
         })
-        console.log(data)
     }
-
     useEffect(() => {
         setSize(priceref.current.value)
     }, [])

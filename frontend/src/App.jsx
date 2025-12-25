@@ -5,6 +5,7 @@ import Footer from './pages/Footer'
 import Login from './pages/Login'
 import Register from './pages/register'
 import { CartProvider } from './component/Contextapi'
+import Cart from './pages/Cart'
 function App() {
   return (
     <>
@@ -15,6 +16,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/loginuser' element={<Login />} />
             <Route path='/createuser' element={<Register />} />
+            <Route path='/cart' element={<Cart />} />
           </Routes>
           <Footer />
         </BrowserRouter>
