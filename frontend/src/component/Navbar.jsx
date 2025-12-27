@@ -1,89 +1,106 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { CiMenuBurger } from "react-icons/ci";
-import { MdOutlineRestaurantMenu } from "react-icons/md";
+import { useCart } from "../component/Contextapi"; // get cart state
 
 const Navbar = () => {
     const [navOpen, setNavOpen] = useState(false);
-    const navigate = useNavigate()
-    const handlelogout = () => {
+    const navigate = useNavigate();
+
+    const cart = useCart() || [];
+
+    // total number of items
+    const totalItems = cart.reduce((sum, item) => sum + (Number(item.qty) || 0), 0)
+
+    // total price (works if your items use `price` or `Price`)
+    const totalAmount = cart.reduce(
+        (sum, item) => sum + (Number(item.price ?? item.Price) || 0),
+        0
+    )
+
+    const handleLogout = () => {
         localStorage.removeItem("authtoken")
         navigate("/")
-        console.log("you are log out")
     }
 
-    const handlecart = () => {
+    const handleCart = () => {
         navigate("/cart")
     }
+
+    const isAuth = Boolean(localStorage.getItem("authtoken"));
+
     return (
-        <nav className="bg-gradient-to-r from-blue-500 to-indigo-600 shadow-lg p-2 lg:flex lg:justify-between lg:items-center lg:p-4 lg:px-8">
-            {/* Branding + Toggle */}
-            <div className="flex items-center justify-between px-4 lg:px-0">
-                <h1 className="text-3xl lg:text-4xl font-bold text-white tracking-tight">
-                    Go<span className="text-yellow-300">food</span>
+        <nav className="bg-gradient-to-r from-blue-500 to-indigo-600 shadow-lg p-3 lg:flex lg:justify-between lg:items-center lg:px-8">
+
+            {/* Branding */}
+            <div className="flex justify-between items-center">
+                <h1 className="text-2xl lg:text-3xl font-bold text-white">
+                    Gofood
                 </h1>
 
-                {/* Mobile Toggle */}
+                {/* Mobile Menu Toggle */}
                 <button
-                    className="lg:hidden text-3xl text-white hover:text-yellow-300 transition-colors duration-300 p-2 rounded-lg hover:bg-white/10"
-                    onClick={() => setNavOpen(prev => !prev)}
+                    className="lg:hidden text-white text-xl"
+                    onClick={() => setNavOpen(!navOpen)}
                 >
-                    {navOpen ? <MdOutlineRestaurantMenu /> : <CiMenuBurger />}
+                    {navOpen ? "Close" : "Menu"}
                 </button>
             </div>
 
-            {(localStorage.getItem("authtoken")) ?
-                <div className="flex items-center gap-4 lg:gap-6">
-                    <div
-                        className={`mt-4 lg:mt-0 flex-col lg:flex lg:flex-row items-center gap-4 lg:gap-8 ${navOpen ? "flex" : "hidden lg:flex"
-                            }`}
-                    >
-                        <Link
-                            to="/"
-                            className="text-white hover:text-yellow-300 font-medium text-lg transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-white/10"
-                        >
-                            Home
-                        </Link>
-                        <Link
-                            to="/order"
-                            className="text-white hover:text-yellow-300 font-medium text-lg transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-white/10"
-                        >
-                            Order
-                        </Link>
-                        <Link
-                            to="/about-us"
-                            className="text-white hover:text-yellow-300 font-medium text-lg transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-white/10"
-                        >
-                            About Us
-                        </Link>
-                    </div>
+            {/* Navigation Links */}
+            {isAuth ? (
+                <div className={`flex-col lg:flex lg:flex-row lg:items-center gap-4 ${navOpen ? "flex" : "hidden lg:flex"}`}>
+
+                    <Link to="/" className="text-white text-lg hover:text-yellow-300">
+                        Home
+                    </Link>
+
+                    <Link to="/order" className="text-white text-lg hover:text-yellow-300">
+                        Order
+                    </Link>
+
+                    <Link to="/about-us" className="text-white text-lg hover:text-yellow-300">
+                        About Us
+                    </Link>
+
+                    {/* Logout Button */}
                     <button
-                        onClick={handlelogout}
-                        className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                        onClick={handleLogout}
+                        className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
                     >
                         Logout
                     </button>
-                    <button onClick={handlecart} className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold px-4 py-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center gap-2">
-                        <span>🛒</span> Cart
-                        <span className="bg-red-800"> 1 </span>
+
+                    {/* Cart Button */}
+                    <button
+                        onClick={handleCart}
+                        className="bg-yellow-400 text-gray-800 px-3 py-1 rounded-lg hover:bg-yellow-500"
+                    >
+                        Cart
+
+                        {/* Badge */}
+                        <span className="ml-2 bg-red-700 text-white text-sm px-2 py-0.5 rounded-full font-semibold">
+                            {totalItems}
+                        </span>
                     </button>
                 </div>
-                :
-                <div className={`${navOpen ? "flex" : "hidden lg:flex"} flex-col lg:flex-row items-center gap-4 lg:gap-6 mt-4 lg:mt-0`}>
+            ) : (
+                <div className={`${navOpen ? "flex" : "hidden lg:flex"} flex-col lg:flex-row gap-4`}>
+
                     <Link
                         to="/loginuser"
-                        className="text-white hover:text-yellow-300 font-medium text-lg transition-colors duration-300 px-4 py-2 rounded-lg border-2 border-white/30 hover:border-yellow-300 hover:bg-white/10"
+                        className="text-white text-lg hover:text-yellow-300 px-4 py-2 border border-white/30 rounded-lg"
                     >
                         Sign-in
                     </Link>
+
                     <Link
                         to="/createuser"
-                        className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold text-lg px-6 py-2 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                        className="bg-yellow-400 text-gray-800 text-lg px-6 py-2 rounded-lg hover:bg-yellow-500"
                     >
                         Sign-up
                     </Link>
                 </div>
-            }
+            )}
         </nav>
     );
 };

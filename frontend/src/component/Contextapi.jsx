@@ -1,32 +1,62 @@
-import React, { createContext, useContext, useReducer } from 'react'
+import React, { createContext, useContext, useReducer } from "react";
 
-const Cartstatecontext = createContext()
-const Cartdispatchcontext = createContext()
-const reducer = (state, action) => {
+// Contexts
+const CartStateContext = createContext();
+const CartDispatchContext = createContext();
 
-    switch (action.type) {
-        case "ADD":
-            return [...state, {
-                name: action.name,
-                id: action.id,
-                img: action.img,
-                size: action.size,
-                qty: action.qty,
-                Total: action.FinalPrice,
-            }]
-        default: console.log(error)
+// Initial state
+const initialState = [];
 
-        }
-}
+// Reducer
+const cartReducer = (state, action) => {
+  switch (action.type) {
+
+    case "ADD": {
+      const { id, name, size, qty, price, img } = action.payload;
+
+      const existIndex = state.findIndex(
+        item => item.id === id && item.size === size
+      );
+
+      if (existIndex !== -1) {
+        const updated = [...state];
+        updated[existIndex].qty += qty;
+        updated[existIndex].price += price;
+        return updated;
+      }
+
+      return [
+        ...state,
+        { id, name, size, qty, price, img }
+      ];
+    }
+
+    case "REMOVE":
+      return state.filter(
+        item => !(item.id === action.payload.id && item.size === action.payload.size)
+      );
+
+    case "CLEAR":
+      return [];
+
+    default:
+      return state;
+  }
+};
+
+// Provider
 export const CartProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(reducer, [])
-    return (
-        <Cartstatecontext.Provider value={state} >
-            <Cartdispatchcontext.Provider value={dispatch}>
-                {children}
-            </Cartdispatchcontext.Provider>
-        </Cartstatecontext.Provider>
-    )
-}
-export const useCart = () => useContext(Cartstatecontext)
-export const useDispatchcart = () => useContext(Cartdispatchcontext)
+  const [state, dispatch] = useReducer(cartReducer, initialState);
+
+  return (
+    <CartStateContext.Provider value={state}>
+      <CartDispatchContext.Provider value={dispatch}>
+          {children}
+      </CartDispatchContext.Provider>
+    </CartStateContext.Provider>
+  );
+};
+
+// Hooks
+export const useCart = () => useContext(CartStateContext);
+export const useDispatchcart = () => useContext(CartDispatchContext);

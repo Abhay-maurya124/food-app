@@ -1,161 +1,109 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { useCart, useDispatchcart } from './Contextapi';
+import React, { useState } from 'react'
+import { useDispatchcart } from './Contextapi'
 
-const Card = (props) => {
-    let foodoption = props.option;
-    let optionkeys = Object.keys(foodoption);
+const Card = ({ fooditem, option }) => {
+    const dispatch = useDispatchcart()
+    const optionsKeys = Object.keys(option)
 
-    let dispatchdata = useDispatchcart()
-    let data = useCart()
-    const [qty, setqty] = useState(1)
-    const [Size, setSize] = useState('')
-    const priceref = useRef()
+    const [Size, setSize] = useState(optionsKeys[0])
+    const [qty, setQty] = useState(1)
 
-    const handleincrement = () => {
-        setqty(prev => Math.max(prev + 1, 1));
-    }
+    const unitPrice = Number(option[Size] || 0)
+    const FinalPrice = qty * unitPrice
 
-    const handleDecrement = () => {
-        setqty(prev => Math.max(prev - 1, 1));
-    }
-    // Inside your handleAddToCart function in Card.js
-    const handleAddToCart = async () => {
-        // Ensure FinalPrice is a number before sending
-        const validatedPrice = qty * parseInt(foodoption[Size]);
-
-        await dispatchdata({
+    const addToCart = () => {
+        dispatch({
             type: "ADD",
-            id: props.fooditem._id,
-            name: props.fooditem.name,
-            qty: Number(qty), // Ensure qty is a number
-            size: Size,
-            Price: validatedPrice,
-            img: props.fooditem.img,
+            payload: {
+                id: fooditem._id,
+                name: fooditem.name,
+                size: Size,
+                qty,
+                price: FinalPrice,
+                img: fooditem.img,
+            }
         })
-    }
-    useEffect(() => {
-        setSize(priceref.current.value)
-    }, [])
-
-    let FinalPrice = qty * parseInt(foodoption[Size])
-
-    // Format price in Indian Rupees style
-    const formatPrice = (price) => {
-        return new Intl.NumberFormat('en-IN', {
-            style: 'currency',
-            currency: 'INR',
-            maximumFractionDigits: 0
-        }).format(price);
     }
 
     return (
-        <div className="flex justify-center items-start p-4">
-            <div className="card bg-white rounded-2xl shadow-lg overflow-hidden w-full max-w-sm transform transition-transform hover:-translate-y-2">
+        <div className="max-w-xs rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-2xl transition-shadow duration-300">
+            {/* Food Image */}
+            <div className="h-48 overflow-hidden">
+                <img 
+                    src={fooditem.img} 
+                    alt={fooditem.name}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+            </div>
 
-                {/* Image Section */}
-                <div className="h-48 w-full overflow-hidden">
-                    <img
-                        src={props.fooditem.img}
-                        alt={props.fooditem.description}
-                        className="w-full h-full object-cover"
-                    />
-                </div>
+            {/* Content */}
+            <div className="p-5">
+                {/* Food Name */}
+                <h3 className="text-xl font-bold text-gray-800 mb-3 truncate">
+                    {fooditem.name}
+                </h3>
 
-                <div className="p-4 space-y-3 text-gray-800">
-                    <h3 className="text-md font-semibold text-indigo-600 text-center uppercase">
-                        {props.fooditem.category}
-                    </h3>
-
-                    <p className="text-lg font-bold text-center">{props.fooditem.name}</p>
-
-                    <p className="text-sm text-gray-600 text-justify">
-                        {props.fooditem.description}
-                    </p>
-
-                    {/* Styled Quantity Selector */}
-                    <div className="flex justify-between items-center bg-gray-50 rounded-xl px-4 py-3 border border-gray-200">
-                        <div className="flex items-center gap-2">
-                            <span className="text-gray-700 font-medium">Quantity</span>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            {/* Decrement Button */}
-                            <button
-                                onClick={handleDecrement}
-                                disabled={qty <= 0}
-                                className={`
-                                    w-8 h-8 rounded-full flex items-center justify-center 
-                                    transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-                                    ${qty <= 0
-                                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                                        : 'bg-red-50 text-red-600 hover:bg-red-100 active:bg-red-200'
-                                    }
-                                `}
-                                aria-label="Decrease quantity"
-                            >
-                                <span className="text-lg font-bold">−</span>
-                            </button>
-
-                            {/* Quantity Display */}
-                            <div className="min-w-[40px] text-center">
-                                <span className={`
-                                    text-lg font-bold transition-all duration-200
-                                    ${qty > 0 ? 'text-gray-800' : 'text-gray-400'}
-                                `}>
-                                    {qty}
-                                </span>
-                            </div>
-
-                            {/* Increment Button */}
-                            <button
-                                onClick={handleincrement}
-                                disabled={qty >= 9}
-                                className={`
-                                    w-8 h-8 rounded-full flex items-center justify-center 
-                                    transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
-                                    ${qty >= 9
-                                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                                        : 'bg-green-50 text-green-600 hover:bg-green-100 active:bg-green-200'
-                                    }
-                                `}
-                                aria-label="Increase quantity"
-                            >
-                                <span className="text-lg font-bold">+</span>
-                            </button>
-                        </div>
-                    </div>
-
+                {/* Size Selector */}
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Size
+                    </label>
                     <select
                         value={Size}
-                        onChange={(e) => setSize(e.target.value)}
-                        ref={priceref}
-                        className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                        onChange={e => setSize(e.target.value)}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white"
                     >
-                        {optionkeys.map((data) => (
-                            <option key={data} value={data}>
-                                {data}
+                        {optionsKeys.map(key => (
+                            <option key={key} value={key}>
+                                {key} - ₹{option[key].toLocaleString('en-IN')}
                             </option>
                         ))}
                     </select>
-
-                    <div className="mt-2 pt-2 border-t border-indigo-100 text-center">
-                        <p className="text-sm font-semibold text-gray-800">
-                            Amount: <span className="text-green-600">₹{FinalPrice.toLocaleString('en-IN')}</span>
-                        </p>
-                    </div>
-                    <button
-                        onClick={handleAddToCart}
-                        disabled={qty === 0}
-                        className={`w-full py-2 rounded-lg text-xs font-bold transition-all duration-300 mt-1 ${qty > 0
-                            ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100 hover:bg-indigo-700 active:scale-95'
-                            : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                            }`}
-                    >
-                        ADD TO CART
-                    </button>
                 </div>
+
+                {/* Quantity Selector */}
+                <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Quantity
+                    </label>
+                    <div className="flex items-center space-x-3">
+                        <button 
+                            onClick={() => setQty(prev => Math.max(prev - 1, 1))}
+                            className="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 hover:text-gray-900 font-bold text-lg transition-colors"
+                        >
+                            −
+                        </button>
+                        <span className="text-xl font-semibold text-gray-800 min-w-[24px] text-center">
+                            {qty}
+                        </span>
+                        <button 
+                            onClick={() => setQty(prev => Math.min(prev + 1, 9))}
+                            className="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 hover:text-gray-900 font-bold text-lg transition-colors"
+                        >
+                            +
+                        </button>
+                    </div>
+                </div>
+
+                {/* Price */}
+                <div className="mb-5">
+                    <div className="text-2xl font-bold text-orange-600">
+                        ₹{FinalPrice.toLocaleString('en-IN')}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                        ₹{unitPrice.toLocaleString('en-IN')} per item
+                    </div>
+                </div>
+
+                {/* Add to Cart Button */}
+                <button 
+                    onClick={addToCart}
+                    className="w-full py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-red-600 transform hover:-translate-y-0.5 transition-all duration-200 active:translate-y-0 shadow-md hover:shadow-lg"
+                >
+                    ADD TO CART
+                </button>
             </div>
-        </div >
+        </div>
     )
 }
 
