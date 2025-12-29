@@ -9,6 +9,7 @@ const initialState = [];
 
 // Reducer
 const cartReducer = (state, action) => {
+
   switch (action.type) {
 
     case "ADD": {
@@ -18,17 +19,28 @@ const cartReducer = (state, action) => {
         item => item.id === id && item.size === size
       );
 
+      //       if (existIndex !== -1) {
+      //     const updated = [...state]; // Copy the array
+      //     updated[existIndex].qty += qty; // Add new quantity to old quantity
+      //     updated[existIndex].price += price; // Add new price to old price
+      //     return updated;
+      // }
+
       if (existIndex !== -1) {
-        const updated = [...state];
-        updated[existIndex].qty += qty;
-        updated[existIndex].price += price;
-        return updated;
+        return state.map((item, index) => {
+          if (index === existIndex) {
+            return {
+              ...item,
+              qty: item.qty + qty,
+              price: item.price + price,
+            };
+          }
+          // 3. Return the original object for items that didn't change
+          return item;
+        });
       }
 
-      return [
-        ...state,
-        { id, name, size, qty, price, img }
-      ];
+      return [...state, { id, name, size, qty, price, img }];
     }
 
     case "REMOVE":
@@ -51,7 +63,7 @@ export const CartProvider = ({ children }) => {
   return (
     <CartStateContext.Provider value={state}>
       <CartDispatchContext.Provider value={dispatch}>
-          {children}
+        {children}
       </CartDispatchContext.Provider>
     </CartStateContext.Provider>
   );

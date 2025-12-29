@@ -1,181 +1,91 @@
-// import React, { useEffect, useState } from 'react'
-// import { useDispatchcart } from './Contextapi'
+import React, { useState } from 'react';
+import { useDispatchcart } from './Contextapi';
 
-// const Card = ({ fooditem, option }) => {
-//     const dispatch = useDispatchcart()
-//     const optionsKeys = Object.keys(option)
+const Card = ({ fooditem, option }) => {
+    const dispatch = useDispatchcart();
+    const optionsKeys = Object.keys(option);
 
-//     const [Size, setSize] = useState(optionsKeys[0])
-//     const [qty, setQty] = useState(1)
+    // 1. Initialize state directly from props
+    const [size, setSize] = useState(optionsKeys[0] || "");
+    const [qty, setQty] = useState(1);
 
-//     const unitPrice = Number(option[Size] || 0)
-//     const FinalPrice = qty * unitPrice
+    // 2. Derive price based on state (no need for extra useEffects)
+    const unitPrice = Number(option[size] || 0);
+    const finalPrice = qty * unitPrice;
 
-//     const addToCart = () => {
-//         dispatch({
-//             type: "ADD",
-//             payload: {
-//                 id: fooditem._id,
-//                 name: fooditem.name,
-//                 size: Size,
-//                 qty,
-//                 price: FinalPrice,
-//                 img: fooditem.img,
-//             }
-//         })
-//     }
-//     return (
-//         <div className="max-w-xs rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-2xl transition-shadow duration-300">
-//             {/* Food Image */}
-//             <div className="h-48 overflow-hidden">
-//                 <img
-//                     src={fooditem.img}
-//                     alt={fooditem.name}
-//                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-//                 />
-//             </div>
+    const handleAddToCart = () => {
+        dispatch({
+            type: "ADD",
+            payload: {
+                id: fooditem._id,
+                name: fooditem.name,
+                size: size,
+                qty: qty,
+                price: finalPrice,
+                img: fooditem.img,
+            }
+        });
+    };
 
-//             {/* Content */}
-//             <div className="p-5">
-//                 {/* Food Name */}
-//                 <h3 className="text-xl font-bold text-gray-800 mb-3 truncate">
-//                     {fooditem.name}
-//                 </h3>
-
-//                 {/* Size Selector */}
-//                 <div className="mb-4">
-//                     <label className="block text-sm font-medium text-gray-700 mb-1">
-//                         Size
-//                     </label>
-//                     <select
-//                         value={Size}
-//                         onChange={e => setSize(e.target.value)}
-//                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent bg-white"
-//                     >
-//                         {optionsKeys.map(key => (
-//                             <option key={key} value={key}>
-//                                 {key} - ₹{option[key].toLocaleString('en-IN')}
-//                             </option>
-//                         ))}
-//                     </select>
-//                 </div>
-
-//                 {/* Quantity Selector */}
-//                 <div className="mb-4">
-//                     <label className="block text-sm font-medium text-gray-700 mb-1">
-//                         Quantity
-//                     </label>
-//                     <div className="flex items-center space-x-3">
-//                         <button
-//                             onClick={() => setQty(prev => Math.max(prev - 1, 1))}
-//                             className="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 hover:text-gray-900 font-bold text-lg transition-colors"
-//                         >
-//                             −
-//                         </button>
-//                         <span className="text-xl font-semibold text-gray-800 min-w-[24px] text-center">
-//                             {qty}
-//                         </span>
-//                         <button
-//                             onClick={() => setQty(prev => Math.min(prev + 1, 9))}
-//                             className="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 hover:text-gray-900 font-bold text-lg transition-colors"
-//                         >
-//                             +
-//                         </button>
-//                     </div>
-//                 </div>
-
-//                 {/* Price */}
-//                 <div className="mb-5">
-//                     <div className="text-2xl font-bold text-orange-600">
-//                         ₹{FinalPrice.toLocaleString('en-IN')}
-//                     </div>
-//                     <div className="text-sm text-gray-500">
-//                         ₹{unitPrice.toLocaleString('en-IN')} per item
-//                     </div>
-//                 </div>
-
-//                 {/* Add to Cart Button */}
-//                 <button
-//                     onClick={addToCart}
-//                     className="w-full py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-red-600 transform hover:-translate-y-0.5 transition-all duration-200 active:translate-y-0 shadow-md hover:shadow-lg"
-//                 >
-//                     ADD TO CART
-//                 </button>
-//             </div>
-//         </div>
-//     )
-// }
-
-// export default Card
-import React, { useState } from 'react'
-
-const Card = (props) => {
-    const options = props.option
-    const optiondata = Object.keys(options)
-    const [size, setsize] = useState(optiondata[0])
-    const [qty, setqty] = useState(0)
-    const handleAddcart = () => {
-        console.log(size)
-    }
     return (
-        <div className="max-w-sm bg-white rounded-2xl shadow-lg overflow-hidden m-4 hover:shadow-2xl transition-all duration-300">
-
+        <div className="max-w-xs rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-2xl transition-all duration-300 m-4">
             {/* Image Section */}
-            <div className="w-full h-44 overflow-hidden">
+            <div className="h-48 overflow-hidden">
                 <img
-                    src={props.fooditem.img}
-                    alt={props.fooditem.name}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    src={fooditem.img}
+                    alt={fooditem.name}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                 />
             </div>
 
-            {/* Content Section */}
-            <div className="p-4">
+            <div className="p-5">
+                <h3 className="text-xl font-bold text-gray-800 mb-1">{fooditem.name}</h3>
+                <p className="text-sm text-gray-500 mb-4 line-clamp-2">{fooditem.description}</p>
 
-                {/* Title */}
-                <h1 className="text-xl font-bold text-gray-800 text-center">
-                    {props.fooditem.name}
-                </h1>
+                <div className="flex flex-col gap-3">
+                    {/* Size and Qty Row */}
+                    <div className="flex items-center justify-between gap-2">
+                        <select
+                            value={size}
+                            onChange={(e) => setSize(e.target.value)}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5"
+                        >
+                            {optionsKeys.map((data) => (
+                                <option key={data} value={data}>{data}</option>
+                            ))}
+                        </select>
 
-                {/* Description */}
-                <p className="text-gray-600 text-sm text-center mt-1">
-                    {props.fooditem.description}
-                </p>
+                        <select
+                            value={qty}
+                            onChange={(e) => setQty(parseInt(e.target.value))}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-20 p-2.5"
+                        >
+                            {Array.from({ length: 6 }, (_, i) => (
+                                <option key={i + 1} value={i + 1}>{i + 1}</option>
+                            ))}
+                        </select>
+                    </div>
 
-                {/* Select Controls */}
-                <div className="mt-4 flex gap-4">
+                    {/* Price Display */}
+                    <div className="flex items-center justify-between mt-2">
+                        <span className="text-2xl font-bold text-gray-900">
+                            ₹{finalPrice.toLocaleString('en-IN')}
+                        </span>
+                        <span className="text-xs text-gray-400">
+                            ₹{unitPrice}/each
+                        </span>
+                    </div>
 
-                    {/* Size Selector */}
-                    <select
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-orange-400"
+                    <button
+                        onClick={handleAddToCart}
+                        className="w-full mt-2 py-3 bg-orange-500 text-white font-bold rounded-lg hover:bg-orange-600 active:scale-95 transition-all shadow-md"
                     >
-                        {optiondata.map((item, index) => (
-                            <option key={index} value={index} onChange={(e) => setsize(e.target.value)}>
-                                {item}
-                            </option>
-                        ))}
-                    </select>
-                    {/* Price Selector */}
-                    <select
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-orange-400"
-                    >
-                        {optiondata.map((item, idx) => (
-                            <option key={idx}>
-                                ₹{options[item]}
-                            </option>
-                        ))}
-                    </select>
+                        ADD TO CART
+                    </button>
                 </div>
-
-                {/* Button */}
-                <button
-                    onClick={handleAddcart}
-                    className="mt-5 w-full py-2 rounded-lg bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold hover:from-orange-600 hover:to-red-600 transition-all duration-200 shadow-md hover:shadow-lg">
-                    Add to Cart
-                </button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Card
+export default Card;

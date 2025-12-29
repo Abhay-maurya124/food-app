@@ -11,6 +11,8 @@ const Navbar = () => {
     // total number of items
     const totalItems = cart.reduce((sum, item) => sum + (Number(item.qty) || 0), 0)
 
+    console.log(totalItems, "inside navbar cart button")
+
     // total price (works if your items use `price` or `Price`)
     const totalAmount = cart.reduce(
         (sum, item) => sum + (Number(item.price ?? item.Price) || 0),
