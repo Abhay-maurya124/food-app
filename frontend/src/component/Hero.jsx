@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import Card from './Card';
-import { useDispatchcart } from './Contextapi';
+// import { useDispatchcart } from './Contextapi';
 // hero section is for the fetching the data from the backend just only and send it to card component as props
 const Hero = () => {
   const [fetchfood, setfetchfood] = useState([])
   const [loading, setloading] = useState(null)
-  const dispatch = useDispatchcart()
+  // const dispatch = useDispatchcart()
 
   const fetchdata = async () => {
     setloading(true)
@@ -21,10 +21,11 @@ const Hero = () => {
 
       setfetchfood(data)
 
-      dispatch({
-        TYPE: "ALLDATA",
-        payload: { fetchfood: data },
-      })
+      // dispatch({
+      //   TYPE: "ALLDATA",
+      //   payload: { fetchfood: data },
+      // })
+
     } catch (error) {
       console.error(error)
     } finally {

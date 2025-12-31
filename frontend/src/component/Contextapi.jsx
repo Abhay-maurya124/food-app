@@ -51,11 +51,12 @@ const cartReducer = (state, action) => {
     case "CLEAR":
       return [];
 
-    case "ALLDATA":
-      return {
-        ...state,
-        fetchfood: action.payload.fetchfood,
-      }
+    // case "ALLDATA":
+    //   return {
+    //     ...state,
+    //     fetchfood: action.payload.fetchfood,
+    //   }
+    
     default:
       return state;
   };
