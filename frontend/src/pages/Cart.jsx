@@ -110,7 +110,6 @@ const Cart = () => {
                               Quantity:{item.qty}
                             </span>
                           </div>
-
                           {/* Price */}
                           <div className="text-right">
                             <div className="text-xl font-bold text-gray-900">
