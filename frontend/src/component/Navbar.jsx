@@ -81,7 +81,7 @@ const Navbar = () => {
 
                         {/* Badge */}
                         <span className="ml-2 bg-red-700 text-white text-sm px-2 py-0.5 rounded-full font-semibold">
-                            {totalItems}
+                            {cart.length}
                         </span>
                     </button>
                 </div>

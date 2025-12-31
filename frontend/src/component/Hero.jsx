@@ -1,23 +1,44 @@
 import React, { useEffect, useState } from 'react'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import Card from './Card';
+import { useDispatchcart } from './Contextapi';
 // hero section is for the fetching the data from the backend just only and send it to card component as props
 const Hero = () => {
   const [fetchfood, setfetchfood] = useState([])
   const [loading, setloading] = useState(null)
+  const dispatch = useDispatchcart()
+
   const fetchdata = async () => {
-    const response = await fetch("http://localhost:5000/api/Alldata", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    const data = await response.json()
-    setfetchfood(data)
+    setloading(true)
+    try {
+      const response = await fetch("http://localhost:5000/api/Alldata", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      const data = await response.json()
+
+      setfetchfood(data)
+
+      dispatch({
+        TYPE: "ALLDATA",
+        payload: { fetchfood: data },
+      })
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setloading(false)
+    }
   }
+
+
   useEffect(() => {
+
     fetchdata()
+
   }, [])
+
   if (loading) {
     return (
       <div className='flex justify-center '>
@@ -35,6 +56,8 @@ const Hero = () => {
       </div>
     )
   }
+
+
   return (
     <div className="min-h-screen w-full bg-blue-100 p-4 grid gap-6
                 grid-cols-1
