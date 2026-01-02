@@ -10,9 +10,6 @@ const Navbar = () => {
 
     // total number of items
     const totalItems = cart.reduce((sum, item) => sum + (Number(item.qty) || 0), 0)
-
-    console.log(totalItems, "inside navbar cart button")
-
     // total price (works if your items use `price` or `Price`)
     const totalAmount = cart.reduce(
         (sum, item) => sum + (Number(item.price ?? item.Price) || 0),
@@ -36,7 +33,9 @@ const Navbar = () => {
             {/* Branding */}
             <div className="flex justify-between items-center">
                 <h1 className="text-2xl lg:text-3xl font-bold text-white">
-                    Gofood
+                    <Link to="/">
+                        Gofood
+                    </Link>
                 </h1>
 
                 {/* Mobile Menu Toggle */}

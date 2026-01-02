@@ -6,7 +6,6 @@ import Crousel from '../component/Crousel'
 const Home = () => {
     return (
         <div>
-            <Navbar />
             <Crousel />
             <Hero />
         </div>

@@ -1,53 +1,54 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
 
 const Crousel = () => {
-  const images = [
-    "/images/pexels-ash-craig-122861-376464.jpg",
-    "/images/pexels-chanwalrus-958545.jpg",
-    "/images/pexels-elevate-1267320.jpg",
-    "/images/pexels-ella-olsson-572949-1640777.jpg",
-    "/images/pexels-fotios-photos-1279330.jpg",
-  ];
-
-  const [current, setCurrent] = useState(0);
-  const containerRef = useRef(null);
-
-  // Auto slide every 3 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % images.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [images.length]);
-
-  // Scroll to current slide
-  useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTo({
-        left: current * window.innerWidth,
-        behavior: "smooth",
-      });
-    }
-  }, [current]);
-
   return (
-    <div
-      ref={containerRef}
-      className="scroll flex w-full overflow-x-auto snap-x no-scrollbar"
-    >
-      {images.map((src, idx) => (
-        <div
-          key={idx}
-          className="shrink-0 w-screen snap-start"
-        >
+    <div className="w-full p-3 max-w-screen mx-auto">
+      <Carousel
+        autoPlay
+        infiniteLoop
+        interval={5000}      // slide duration
+        transitionTime={800} // animation speed
+        showThumbs={false}   // hide thumbnails
+        showStatus={false}     // hide status text
+        showArrows={false}     // hide arrows
+        stopOnHover={false}    // keeps autoplay on hover
+        swipeable={true}
+        emulateTouch={true}
+      >
+
+        <div>
           <img
-            src={src}
-            className="w-full h-[80vh] object-cover"
-            alt={`Slide ${idx + 1}`}
+            src="/images/pexels-ash-craig-122861-376464.jpg"
+            className="object-cover h-64 md:h-96 w-full"
           />
         </div>
-      ))}
+        <div>
+          <img
+            src="/images/pexels-chanwalrus-958545.jpg"
+            className="object-cover h-64 md:h-96 w-full"
+          />
+        </div>
+        <div>
+          <img
+            src="/images/pexels-elevate-1267320.jpg"
+            className="object-cover h-64 md:h-96 w-full"
+          />
+        </div>
+        <div>
+          <img
+            src="/images/pexels-ella-olsson-572949-1640777.jpg"
+            className="object-cover h-64 md:h-96 w-full"
+          />
+        </div>
+        <div>
+          <img
+            src="/images/pexels-fotios-photos-1279330.jpg"
+            className="object-cover h-64 md:h-96 w-full"
+          />
+        </div>
+      </Carousel>
     </div>
   );
 };
