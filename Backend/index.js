@@ -4,7 +4,6 @@ const express = require("express");
 const mongo = require("./db");
 const cors = require("cors");
 
-const orderRouter =  require('./Routers/Order.js');
 const app = express();
 const port = 5000;
 
@@ -23,7 +22,7 @@ app.use(
 );
 // Updated line - changed Createuser.js to User.js
 app.use("/api", require("./Routers/User.js"));
-app.use('/api', orderRouter);
+// app.use("/api", require("./Routers/Order.js"));
 app.use("/api", require("./Routers/Showdata.js"));
 app.listen(port, () => {
   console.log("✅ backend connected on port", port);

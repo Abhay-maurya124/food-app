@@ -26,7 +26,6 @@ const Hero = () => {
       //   TYPE: "ALLDATA",
       //   payload: { fetchfood: data },
       // })
-
     } catch (error) {
       console.error(error)
     } finally {

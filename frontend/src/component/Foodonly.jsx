@@ -7,10 +7,11 @@ const Foodonly = () => {
     // 3>Fetch the whole data but for the sprcific card
     //using fetch best approch to to this 
     const { orderId } = useParams();
-    console.log(orderId)
+    // console.log(orderId)
     const [fooditem, setfooditem] = useState([])
     const fetchfood = async () => {
-        const response = await fetch(`http://localhost:5000/order/${orderId}`);
+        const response = await fetch(`http://localhost:5000/api/order/${orderId}`);
+        ;
 
         // if not successful, do not call .json()
         if (!response.ok) {

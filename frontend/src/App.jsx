@@ -9,7 +9,7 @@ import Cart from './pages/Cart'
 import Order from './pages/Order'
 import Navbar from './component/Navbar'
 import Aboutus from './pages/Aboutus'
-import Foodonly from './component/Foodonly'
+// import Foodonly from './component/Foodonly'
 function App() {
   return (
     <>
@@ -26,7 +26,7 @@ function App() {
             <Route path='/cart' element={<Cart />} />
             <Route path='/order' element={<Order />} />
             <Route path='/about-us' element={<Aboutus />} />
-            <Route path='/order/:orderId' element={<Foodonly />} />
+            {/* <Route path='/order/:orderId' element={<Foodonly />} /> */}
           </Routes>
           <Footer />
         </BrowserRouter>

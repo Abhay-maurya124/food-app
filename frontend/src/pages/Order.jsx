@@ -90,14 +90,14 @@ const Order = () => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
 
           {filtered.map((item) => (
-            <Link to={`/order/${item._id}`}>
-              <Card
-                key={item._id ?? item.id}
-                fooditem={item}
-                option={item.options?.[0]}
-                className="transform hover:scale-105 transition"
-              />
-            </Link>
+            // <Link to={`/order/${item._id}`}>
+            <Card
+              key={item._id ?? item.id}
+              fooditem={item}
+              option={item.options?.[0]}
+              className="transform hover:scale-105 transition"
+            />
+            // </Link>
           ))}
         </div>
       ) : (
