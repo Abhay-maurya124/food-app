@@ -13,6 +13,25 @@ const Cart = () => {
   const handleRemove = (id, size) => {
     dispatch({ type: "REMOVE", payload: { id, size } })
   }
+  const handleCheckout = async () => {
+    const payload = cart.map(item => ({
+      id: item.id,
+      name: item.name,
+      size: item.size,
+      qty: item.qty,
+      price: parseInt(item.price),  // price already calculated
+      img: item.img
+    }));
+
+    const res = await fetch("http://localhost:5000/api/payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cartItems: payload }),
+    });
+    const data = await res.json();
+    if (data.url) window.location = data.url;
+  };
+
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
@@ -157,7 +176,7 @@ const Cart = () => {
                 </div>
 
                 {/* Checkout Button */}
-                <button className="w-full py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-lg hover:from-green-600 hover:to-emerald-700 transform hover:-translate-y-0.5 transition-all duration-200 active:translate-y-0 shadow-md hover:shadow-lg mb-4">
+                <button onClick={handleCheckout} className="w-full py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-lg hover:from-green-600 hover:to-emerald-700 transform hover:-translate-y-0.5 transition-all duration-200 active:translate-y-0 shadow-md hover:shadow-lg mb-4">
                   Proceed to Checkout
                 </button>
 

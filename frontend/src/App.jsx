@@ -9,6 +9,8 @@ import Cart from './pages/Cart'
 import Order from './pages/Order'
 import Navbar from './component/Navbar'
 import Aboutus from './pages/Aboutus'
+import Paymentsuccess from './component/Paymentsuccess'
+import Paymentfail from './component/Paymentfail'
 // import Foodonly from './component/Foodonly'
 function App() {
   return (
@@ -26,12 +28,13 @@ function App() {
             <Route path='/cart' element={<Cart />} />
             <Route path='/order' element={<Order />} />
             <Route path='/about-us' element={<Aboutus />} />
+            <Route path='/payment-success' element={<Paymentsuccess />} />
+            <Route path='/payment-fail' element={<Paymentfail />} />
             {/* <Route path='/order/:orderId' element={<Foodonly />} /> */}
           </Routes>
           <Footer />
         </BrowserRouter>
       </CartProvider>
-
     </>
   )
 }

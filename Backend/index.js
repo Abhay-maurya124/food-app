@@ -6,12 +6,10 @@ const cors = require("cors");
 
 const app = express();
 const port = 5000;
-
+app.use(express.json());
 mongo();
 
 app.get("/", (req, res) => res.send("hello"));
-
-app.use(express.json());
 
 app.use(
   cors({
@@ -24,6 +22,9 @@ app.use(
 app.use("/api", require("./Routers/User.js"));
 // app.use("/api", require("./Routers/Order.js"));
 app.use("/api", require("./Routers/Showdata.js"));
+// index.js (backend)
+app.use("/api/payment", require("./Routers/Payment.js"));
+
 app.listen(port, () => {
   console.log("✅ backend connected on port", port);
 });
