@@ -10,7 +10,10 @@ app.use(express.json());
 mongo();
 
 app.get("/", (req, res) => res.send("hello"));
-
+app.use(cors({
+  origin: "https://food-app-sand-chi.vercel.app", // Your specific frontend URL
+  credentials: true
+}));
 app.use(
   cors({
     origin: ["http://localhost:5174", "http://localhost:5173"],
