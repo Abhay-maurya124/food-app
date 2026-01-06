@@ -1,33 +1,32 @@
 require("dotenv").config();
-
 const express = require("express");
+const path = require("path"); // <--- Add this
 const mongo = require("./db");
 const cors = require("cors");
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000; // Use environment variable
+
 app.use(express.json());
 mongo();
 
-app.get("/", (req, res) => res.send("hello"));
-app.use(cors({
-  origin: "https://food-app-sand-chi.vercel.app", // Your specific frontend URL
-  credentials: true
-}));
-app.use(
-  cors({
-    origin: ["http://localhost:5174", "http://localhost:5173"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
-// Updated line - changed Createuser.js to User.js
+// Move CORS before routes
+app.use(cors()); 
+
+// API Routes
 app.use("/api", require("./Routers/User.js"));
-// app.use("/api", require("./Routers/Order.js"));
 app.use("/api", require("./Routers/Showdata.js"));
-// index.js (backend)
 app.use("/api/payment", require("./Routers/Payment.js"));
 
+// Serve Frontend Static Files
+// Note: Vercel handles the backend as serverless functions, 
+// so the pathing needs to be precise relative to the root.
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
+});
+
 app.listen(port, () => {
-  console.log("✅ backend connected on port", port);
+    console.log("✅ backend connected");
 });

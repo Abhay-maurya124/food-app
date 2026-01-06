@@ -3,22 +3,39 @@ logs
 *.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Node modules
+node_modules/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Build / output
+dist/
+dist-ssr/
+build/
+out/
+
+# Environment files
+.env
+.env.*
+
+# Cache / coverage
+.cache/
+coverage/
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# Misc temp
+*.tmp
+*.bak

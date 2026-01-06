@@ -1,2 +1,32 @@
-node_modules
+# Dependencies
+node_modules/
+
+# Environment files
 .env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build / output folders
+dist/
+build/
+
+# Coverage reports
+coverage/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE / editor folders
+.vscode/
+.idea/
+
+# Optional caches
+.cache/
