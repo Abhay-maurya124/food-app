@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 
-const Register = () => {
+const Login = () => {
 
     const [credentials, setcredentials] = useState({ email: "", password: "" })
     const navigate = useNavigate()
@@ -101,4 +101,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default Login
