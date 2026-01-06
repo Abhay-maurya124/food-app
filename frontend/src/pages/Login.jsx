@@ -12,16 +12,16 @@ const Register = () => {
     const handleform = async (e) => {
         e.preventDefault()
         try {
-            const response = await fetch('http://localhost:5000/api/loginuser', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    email: credentials.email,
-                    password: credentials.password
-                })
-            })
+           const response = await fetch('/api/loginuser', {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        email: credentials.email,
+        password: credentials.password
+    })
+})
             const data = await response.json()
             console.log("Server response:", JSON.stringify(data))
             localStorage.setItem("authtoken", data.authtoken)

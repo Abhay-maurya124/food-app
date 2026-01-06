@@ -23,11 +23,11 @@ const Cart = () => {
       img: item.img
     }));
 
-    const res = await fetch("http://localhost:5000/api/payment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cartItems: payload }),
-    });
+  const res = await fetch("/api/payment", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ cartItems: payload }),
+});
     const data = await res.json();
     if (data.url) window.location = data.url;
   };

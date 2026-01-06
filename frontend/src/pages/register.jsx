@@ -12,7 +12,7 @@ const Register = () => {
   const handleform = async (e) => {
     e.preventDefault()
     try {
-      const response = await fetch('http://localhost:5000/api/createuser', {
+      const response = await fetch('/api/createuser', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -107,7 +107,7 @@ const Register = () => {
             </p>
           </div>
         </div>
-        
+
         {/* Subtle decorative element */}
         <div className="h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
       </div>
