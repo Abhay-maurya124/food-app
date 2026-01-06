@@ -24,7 +24,7 @@
     {
       "src": "/(.*)",
       "status": 200,
-      "dest": "/index.html"
+      "dest": "frontend/index.html"
     }
   ]
 }
