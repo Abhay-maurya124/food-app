@@ -4,7 +4,7 @@ const UserSchema = require("../models/UserSchema");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const jwtsecret = "mynameisabhaymauryathisisbackend"
+const jwtsecret = process.env.JWT_SECRET 
 // CREATE USER
 router.post("/createuser", async (req, res) => {
   const salt =await bcrypt.genSalt(10);
