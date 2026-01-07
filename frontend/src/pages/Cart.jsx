@@ -23,11 +23,11 @@ const Cart = () => {
       img: item.img
     }));
 
-  const res = await fetch("/api/payment", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ cartItems: payload }),
-});
+    const res = await fetch("http://localhost:5000/api/payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cartItems: payload }),
+    });
     const data = await res.json();
     if (data.url) window.location = data.url;
   };
@@ -60,7 +60,7 @@ const Cart = () => {
               Add some delicious items to get started!
             </p>
             <a
-              href="/"
+              href="/order"
               className="inline-flex items-center px-6 py-3 bg-orange-500 text-white font-medium rounded-lg hover:bg-orange-600 transition-colors"
             >
               Continue Shopping

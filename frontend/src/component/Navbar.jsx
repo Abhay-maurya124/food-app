@@ -17,7 +17,10 @@ const Navbar = () => {
     )
 
     const handleLogout = () => {
-        localStorage.removeItem("authtoken")
+        alert("Are Really want to Logout",
+            localStorage.removeItem("authtoken")
+        )
+        
         navigate("/")
     }
 

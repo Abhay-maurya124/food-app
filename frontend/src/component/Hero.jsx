@@ -13,7 +13,7 @@ const Hero = () => {
   const fetchdata = async () => {
     setloading(true)
     try {
-      const response = await fetch("/api/Alldata", {  // <--- Remove http://localhost:5000
+      const response = await fetch("http://localhost:5000/api/Alldata", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +65,6 @@ const Hero = () => {
       </div>
     )
   }
-
   const slicedata = fetchfood.slice(0, 4)
 
   return (
@@ -110,9 +109,10 @@ const Hero = () => {
             {/* View All Card */}
             <div className="col-span-full mt-8 flex justify-center">
               <div className="relative group">
-                <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300
+                <button onClick={handlenavigate} className="cursor-pointer px-8 py-4 bg-gradient-to-b from-blue-500 to-blue-600
+                 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl transition-all duration-300
                  transform group-hover:scale-105 active:scale-95 flex items-center space-x-3">
-                  <span onClick={handlenavigate}>Explore Full Menu</span>
+                  <span >Explore Full Menu</span>
                   <svg className="w-5 h-5 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>

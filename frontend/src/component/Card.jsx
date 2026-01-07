@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatchcart } from './Contextapi';
-
+import { useNavigate } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 const Card = ({ fooditem, option }) => {
     const dispatch = useDispatchcart();
     const optionsKeys = Object.keys(option);
@@ -12,6 +13,7 @@ const Card = ({ fooditem, option }) => {
     // 2. Derive price based on state (no need for extra useEffects)
     const unitPrice = Number(option[size] || 0);
     const finalPrice = qty * unitPrice;
+    const notify = () => toast.success('Successfully Added to Cart');
 
     const handleAddToCart = () => {
         dispatch({
@@ -25,7 +27,15 @@ const Card = ({ fooditem, option }) => {
                 img: fooditem.img,
             }
         });
+        notify()
     };
+    const isAuth = Boolean(localStorage.getItem("authtoken"));
+    const navigate = useNavigate()
+
+    const handlelogin = () => {
+        alert("u need to login First")
+        navigate("/loginuser")
+    }
 
     return (
         <div className="max-w-xs rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-2xl transition-all duration-300 m-4">
@@ -76,12 +86,27 @@ const Card = ({ fooditem, option }) => {
                         </span>
                     </div>
 
-                    <button
-                        onClick={handleAddToCart}
-                        className="w-full mt-2 py-3 bg-orange-500 text-white font-bold rounded-lg hover:bg-orange-600 active:scale-95 transition-all shadow-md"
-                    >
-                        ADD TO CART
-                    </button>
+
+                    {isAuth ? (
+                        <button
+                            onClick={handleAddToCart}
+                            className="w-full mt-2 py-3 bg-orange-500 text-white font-bold rounded-lg hover:bg-orange-600 active:scale-95 transition-all shadow-md"
+                        >
+                            ADD TO CART
+                            <Toaster />
+                        </button>
+
+                    ) : (
+                        <button
+                            onClick={handlelogin}
+                            className="w-full mt-2 py-3 bg-orange-500 text-white font-bold rounded-lg hover:bg-orange-600 active:scale-95 transition-all shadow-md"
+                        >
+                            ADD TO CART
+
+                        </button>
+                    )}
+
+
                 </div>
             </div>
         </div>
