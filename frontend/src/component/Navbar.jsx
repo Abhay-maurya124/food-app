@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../component/Contextapi"; // get cart state
+import { toast, Toaster } from "react-hot-toast";
 
 const Navbar = () => {
     const [navOpen, setNavOpen] = useState(false);
@@ -19,11 +20,11 @@ const Navbar = () => {
     const handleLogout = () => {
         alert("Are Really want to Logout",
             localStorage.removeItem("authtoken")
+
         )
-        
+        toast.error("logout success")
         navigate("/")
     }
-
     const handleCart = () => {
         navigate("/cart")
     }
@@ -71,6 +72,7 @@ const Navbar = () => {
                         onClick={handleLogout}
                         className="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
                     >
+                        <Toaster />
                         Logout
                     </button>
 
@@ -95,6 +97,7 @@ const Navbar = () => {
                         className="text-white text-lg hover:text-yellow-300 px-4 py-2 border border-white/30 rounded-lg"
                     >
                         Sign-in
+                        <Toaster />
                     </Link>
 
                     <Link

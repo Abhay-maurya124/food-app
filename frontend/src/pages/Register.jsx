@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import toast from 'react-hot-toast'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 const Register = () => {
 
@@ -8,7 +9,7 @@ const Register = () => {
   const handlechange = (e) => {
     setcredentials({ ...credentials, [e.target.name]: e.target.value })
   }
-
+  const navigate = useNavigate()
   const handleform = async (e) => {
     e.preventDefault()
     try {
@@ -25,6 +26,15 @@ const Register = () => {
       })
       const data = await response.json()
       console.log("Server response:", JSON.stringify(data))
+      if (response.ok) {
+        toast.success('Login Successful!')
+
+        localStorage.setItem("authtoken", data.authtoken)
+        setTimeout(() => {
+          navigate("/")
+        }, 1500)
+      }
+
     } catch (error) {
       console.log(error)
     }
@@ -107,7 +117,7 @@ const Register = () => {
             </p>
           </div>
         </div>
-        
+
         {/* Subtle decorative element */}
         <div className="h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
       </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 
 const Register = () => {
@@ -9,30 +10,42 @@ const Register = () => {
         setcredentials({ ...credentials, [e.target.name]: e.target.value })
     }
 
-    const handleform = async (e) => {
+   const handleform = async (e) => {
         e.preventDefault()
         try {
             const response = await fetch('http://localhost:5000/api/loginuser', {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     email: credentials.email,
                     password: credentials.password
                 })
             })
+
             const data = await response.json()
-            console.log("Server response:", JSON.stringify(data))
-            localStorage.setItem("authtoken", data.authtoken)
-            navigate("/")
+
+            if (response.ok) {
+                // 1. Show the Success Toast
+                toast.success('Login Successful!')
+                
+                localStorage.setItem("authtoken", data.authtoken)
+                
+                // 2. Wait a moment so user can see the toast, then navigate
+                setTimeout(() => {
+                    navigate("/")
+                }, 1500)
+            } else {
+                // Show error toast if backend returns an error (e.g., wrong password)
+                toast.error(data.message || "Invalid Credentials")
+            }
         } catch (error) {
             console.log(error)
+            toast.error("Something went wrong. Please try again.")
         }
     }
-
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-6">
+           <Toaster position="top-center" reverseOrder={false} />
             <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden border border-gray-100">
                 <div className="p-8">
                     <div className="text-center mb-8">
@@ -76,6 +89,7 @@ const Register = () => {
                                 type="submit"
                                 className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
                             >
+                                <Toaster />
                                 Sign In
                             </button>
                         </div>
