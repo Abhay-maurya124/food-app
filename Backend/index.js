@@ -1,29 +1,44 @@
 require("dotenv").config();
-
 const express = require("express");
 const mongo = require("./db");
 const cors = require("cors");
 
 const app = express();
-const port = 5000;
-app.use(express.json());
+
+// 1. Initialize Database Connection 
 mongo();
 
-app.get("/", (req, res) => res.send("hello"));
+app.use(express.json());
+
+// 2. Updated CORS for Production 
 app.use(
   cors({
-    origin: ["http://localhost:5174", "http://localhost:5173"],
+    origin: [
+      "http://localhost:5173", 
+      "http://localhost:5174", 
+      "https://gofood-app-psi.vercel.app" // Your deployed frontend URL
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
+    credentials: true
   })
 );
-// Updated line - changed Createuser.js to User.js
+
+// 3. Define Routes 
+app.get("/", (req, res) => res.send("GoFood API is running..."));
+
 app.use("/api", require("./Routers/User.js"));
-// app.use("/api", require("./Routers/Order.js"));
 app.use("/api", require("./Routers/Showdata.js"));
-// index.js (backend)
 app.use("/api/payment", require("./Routers/Payment.js"));
 
-app.listen(port, () => {
-  console.log("✅ backend connected on port", port);
-});
+// 4. CRITICAL: Only use app.listen for local development 
+// Vercel manages the port automatically in production.
+if (process.env.NODE_ENV !== "production") {
+    const port = 5000;
+    app.listen(port, () => {
+        console.log("✅ Backend connected locally on port", port);
+    });
+}
+
+// 5. CRITICAL: Export the app for Vercel's Serverless Functions 
+module.exports = app;
