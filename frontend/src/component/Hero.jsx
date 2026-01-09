@@ -13,7 +13,7 @@ const Hero = () => {
   const fetchdata = async () => {
     setloading(true)
     try {
-      const response = await fetch("http://localhost:5000/api/Alldata", {
+      const response = await fetch("/api/Alldata", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

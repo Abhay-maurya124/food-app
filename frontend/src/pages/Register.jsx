@@ -13,7 +13,7 @@ const Register = () => {
   const handleform = async (e) => {
     e.preventDefault()
     try {
-      const response = await fetch('http://localhost:5000/api/createuser', {
+      const response = await fetch('/api/createuser', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

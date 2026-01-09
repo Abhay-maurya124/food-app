@@ -10,7 +10,7 @@ const Foodonly = () => {
     // console.log(orderId)
     const [fooditem, setfooditem] = useState([])
     const fetchfood = async () => {
-        const response = await fetch(`http://localhost:5000/api/order/${orderId}`);
+        const response = await fetch(`/api/order/${orderId}`);
         ;
 
         // if not successful, do not call .json()

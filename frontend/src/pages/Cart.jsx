@@ -23,7 +23,7 @@ const Cart = () => {
       img: item.img
     }));
 
-    const res = await fetch("http://localhost:5000/api/payment", {
+    const res = await fetch("/api/payment", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ cartItems: payload }),
