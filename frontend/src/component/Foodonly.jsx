@@ -10,7 +10,7 @@ const Foodonly = () => {
     // console.log(orderId)
     const [fooditem, setfooditem] = useState([])
     const fetchfood = async () => {
-        const response = await fetch(`https://gofood1-app.vercel.app/api/order/${orderId}`);
+        const response = await fetch(`https://gofood-app-psi.vercel.app/api/order${orderId}`);
         ;
 
         // if not successful, do not call .json()
