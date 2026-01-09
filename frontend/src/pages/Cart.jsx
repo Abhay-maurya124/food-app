@@ -23,7 +23,7 @@ const Cart = () => {
       img: item.img
     }));
 
-    const res = await fetch("/api/payment", {
+    const res = await fetch("https://gofood1-app.vercel.app/api/payment", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ cartItems: payload }),

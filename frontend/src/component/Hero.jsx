@@ -13,7 +13,7 @@ const Hero = () => {
   const fetchdata = async () => {
     setloading(true)
     try {
-      const response = await fetch("/api/Alldata", {
+      const response = await fetch("https://gofood1-app.vercel.app/api/Alldata", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

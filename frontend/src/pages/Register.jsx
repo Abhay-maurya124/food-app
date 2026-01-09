@@ -13,7 +13,7 @@ const Register = () => {
   const handleform = async (e) => {
     e.preventDefault()
     try {
-      const response = await fetch('/api/createuser', {
+      const response = await fetch('https://gofood1-app.vercel.app/api/createuser', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
