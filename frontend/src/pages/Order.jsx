@@ -10,7 +10,7 @@ const Order = () => {
   const fetchdata = async () => {
     setloading(true);
     try {
-      const response = await fetch("https://gofood1-app.vercel.app/api/Alldata", {
+      const response = await fetch("https://gofood-backend-is9e.onrender.com/api/Alldata", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });
