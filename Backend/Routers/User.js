@@ -27,26 +27,42 @@ router.post("/createuser", async (req, res) => {
 
 // LOGIN USER
 router.post("/loginuser", async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
+    console.log("Received login:", { email, password });
 
-  const user = await UserSchema.findOne({ email });
-  console.log("FOUND USER:", user && user.email, user && user.password);
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ message: "Email and password are required" });
+    }
 
-  if (!user)
-    return res.status(400).json({ message: "Invalid email or password" });
+    const user = await UserSchema.findOne({ email });
+    console.log("DB user:", user);
 
-  const pswcompare =await bcrypt.compare(req.body.password, user.password);
-  if (!pswcompare)
-    return res.status(400).json({ message: "Invalid email or password" });
+    if (!user) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
 
-  const data = {
-    user: {
-      id: user.id,
-    },
-  };
-  const authtoken = jwt.sign(data, jwtsecret);
-  return res.json({ message: "Login successful", authtoken:authtoken });
+    const isMatch = await bcrypt.compare(password, user.password);
+    console.log("Password match:", isMatch);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+
+    const data = { user: { id: user.id } };
+    const token = jwt.sign(data, jwtsecret, { expiresIn: "1h" });
+
+    return res.json({ message: "Login successful", authtoken: token });
+  } catch (err) {
+    console.error("Login error:", err);
+    return res
+      .status(500)
+      .json({ message: "Something went wrong", error: err.message });
+  }
 });
+
 
 module.exports = router;
 

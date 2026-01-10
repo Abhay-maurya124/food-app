@@ -4,7 +4,7 @@ import { Carousel } from "react-responsive-carousel";
 
 const Crousel = () => {
   return (
-    <div className="w-full p-3 max-w-screen mx-auto">
+    <div className="w-full  max-w-screen mx-auto">
       <Carousel
         autoPlay
         infiniteLoop
